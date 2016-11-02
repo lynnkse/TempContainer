@@ -6,7 +6,6 @@
 using namespace std;
 
 template <class T, class CONT = vector<T*> >
-//template <class T, template <class T, >>
 class TContainer
 {
 	public:
@@ -17,7 +16,7 @@ class TContainer
 		void Insert(const T* _el) { m_container.insert(m_container.end(), (T*)_el); }
 		const T* First() const { return *m_container.begin(); }
 		const T* Last() const { return *m_container.rbegin(); }
-		const T* Find(const T& _el) const { return *(find_if(m_container.begin(), m_container.end(), Equals<T>(_el))); }
+		const T* Find(const T& _el) const {typename CONT::const_iterator it = find_if(m_container.begin(), m_container.end(), Equals<T>(_el)); if(it != m_container.end()) return *it; else return NULL; }
 		const T* Remove(const T& _el);
 		void RemoveAll() { m_container.clear(); }
 		bool RemoveAndDelete(const T& _el) { const T* dataPtr = Remove(_el); if(dataPtr) delete dataPtr; return (bool) dataPtr; }
@@ -71,7 +70,7 @@ const T* TContainer<T, CONT>::operator[](int _i) const
 	}
 	else
 	{
-		typename CONT::iterator it = m_container.begin();
+		typename CONT::const_iterator it = m_container.begin();
 		for(int i = 0; i < _i, it != m_container.end(); ++i)
 		{
 			++it;
