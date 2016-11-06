@@ -42,7 +42,7 @@ void RemoveTestList();
 void RemoveAllTestList();
 void RemoveAndDeleteTestList();
 void RemoveAndDeleteAllTestList();
-//void SubscriptionTestList();
+void SubscriptionTestList();
 
 TContainer<int, vector<int*> > g_cont;
 TContainer<int, list<int*> > g_list;
@@ -290,7 +290,7 @@ void RunList()
 				RemoveAndDeleteAllTestList();
 				break;
 			case SUBSCRIPT:
-				//SubscriptionTestList();
+				SubscriptionTestList();
 				break;
 			case EXIT:
 				break;
@@ -385,14 +385,21 @@ void RemoveAndDeleteAllTestList()
 	cout << "Done" << endl;
 }
 
-/*void SubscriptionTestList()
+void SubscriptionTestList()
 {
 	int i;
 	cout << "Enter index" << endl;
 	cin >> i;
 	int* res = (int*)g_list[i];
-	cout << "Integer: " << *res << endl;
-}*/
+	if(res)
+	{
+		cout << "Integer: " << *res << endl;
+	}
+	else
+	{
+		cout << "NULL" << endl;
+	}
+}
 
 
 

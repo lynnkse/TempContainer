@@ -28,6 +28,7 @@ class TContainer
 
 		TContainer(const TContainer& _cont){}
 		void operator=(const TContainer& _cont){};
+		//const T* list::operator[](int _i){};
 
 		template <class TYPE>		
 		class Equals	
@@ -64,21 +65,23 @@ template <class T, class CONT>
 const T* TContainer<T, CONT>::operator[](int _i) const
 {
 	T* res = NULL;
-	if(typeid(m_container) == typeid(vector<T*>))
-	{
-		res = m_container[_i];
-	}
-	else
-	{
+	if(typeid(m_container) != typeid(vector<T*>))
+	{		
 		typename CONT::const_iterator it = m_container.begin();
-		for(int i = 0; i < _i, it != m_container.end(); ++i)
+		for(int i = 0; i < _i && it != m_container.end(); ++i)
 		{
 			++it;
 		}		
 		if(it != m_container.end())
 		{
 			res = *it;		
-		}		
+		}			
+	}
+	else
+	{
+		//const vector<T*>* vec = dynamic_cast<const vector<T*>*>(&m_container);		
+		//res = (*vec)[_i];
+		//res = m_container[_i];		
 	}
 	return res;
 }
